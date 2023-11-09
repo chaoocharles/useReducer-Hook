@@ -1,11 +1,16 @@
 import { useReducer, useState } from "react";
 import "./App.css";
 
+const ActionTypes = {
+  ADD_TASK: "ADD",
+  DELETE_TASK: "DELETE",
+};
+
 const reducer = (state, action) => {
   switch (action.type) {
-    case "ADD":
+    case ActionTypes.ADD_TASK:
       return [...state, { id: Date.now(), title: action.payload }];
-    case "DELETE":
+    case ActionTypes.DELETE_TASK:
       return state.filter((task) => task.id !== action.payload);
     default:
       return state;
@@ -18,13 +23,13 @@ function App() {
 
   const handleAddTask = () => {
     if (task.trim() !== "") {
-      dispatch({ type: "ADD", payload: task });
+      dispatch({ type: ActionTypes.ADD_TASK, payload: task });
       setTask(""); // Clear the input field after adding a task
     }
   };
 
   const handleDeleteTask = (taskId) => {
-    dispatch({ type: "DELETE", payload: taskId });
+    dispatch({ type: ActionTypes.DELETE_TASK, payload: taskId });
   };
 
   return (
